@@ -1,0 +1,20 @@
+[Unit]
+Description=Named Daemon Service
+#Wants=network.target dhcpcd5.service
+After=basic.target network-online.target
+Before=sshd.service ntpd.service
+#Conflicts=systemd-timesyncd.service
+
+[Service]
+# ExecStart=/usr/local/sbin/ntpd -s -f /usr/local/etc/openntpd/ntpd.conf
+ExecStart=/usr/local/sh/init.d/named.sh start
+ExecReload=/usr/local/sh/init.d/named.sh reload
+ExecStop=/usr/local/sh/init.d/named.sh stop
+# Restart=always
+# StartLimitIntervalSec=1800s
+# StartLimitBurst=30
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
+

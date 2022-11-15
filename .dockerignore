@@ -1,0 +1,6 @@
+.git
+.gitignore
+gitpush.sh
+docker-compose.yml
+postexec.sh
+

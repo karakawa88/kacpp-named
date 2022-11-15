@@ -1,0 +1,6 @@
+# bindインストールに必要なパッケージ
+libcap2
+libcap2-bin
+libssl1.1
+libuv1
+libnghttp2-14

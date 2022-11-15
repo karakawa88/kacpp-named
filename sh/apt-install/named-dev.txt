@@ -1,0 +1,11 @@
+# bindインストールに必要なパッケージ
+libcap2
+libcap2-bin
+libcap-dev
+libssl1.1
+libssl-dev
+libuv1
+libuv1-dev
+libnghttp2-dev
+libnghttp2-14
+python3-pip

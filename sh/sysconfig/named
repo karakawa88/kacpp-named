@@ -1,0 +1,23 @@
+#####
+# 説明: DNSサーバー Bind 9 起動スクリプトの環境変数
+# 詳細: NAMED_ROOTはchrootのrootディレクトリーを指定し、
+#       もしchrootをかけない場合はカラ文字列かなにも設定しないでおく。
+#       chrrotをかける時は設定ファイルなどはchrrotディレクトリーからの相対パスを指定。
+# 環境変数:
+#   NAMED_CONF_FILE         NAMEの設定ファイル
+#   NAMED_USER              namedのプロセスのユーザー名
+#   NAMED_ROOT              named chrootルートディレクトリー
+#   NAMED                   named コマンド
+#   RNDC                    rndcコマンド
+#   RNDC_CONF               rndc設定ファイル
+#   QUERY_LOG_FLAG          querylogを取るかのフラグ
+#                           デフォルトはFALSE
+#####
+NAMED_CONF_FILE=/etc/named/named.conf
+NAMED_USER=named
+#NAMED_ROOT="/home/data/raspilocal/var/named"
+NAMED_ROOT="/var/named"
+NAMED=/usr/local/sbin/named
+RNDC=/usr/local/sbin/rndc
+RNDC_CONF="/etc/named/rndc.conf"
+QUERY_LOG_FLAG=TRUE

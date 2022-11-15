@@ -1,0 +1,10 @@
+*.log
+*.o
+*.gch
+__pycache__
+mypyreport
+practice_python
+/dmarcreport.ini
+gitpush.sh
+
+

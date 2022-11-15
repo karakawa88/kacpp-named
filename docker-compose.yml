@@ -1,0 +1,33 @@
+version: "3"
+
+# docker run --privileged -dit --name kacpp-mail --net kaawsnet -p 25:25 -p 465:465 -p 587:587 -v /home:/home/mail_users -v /home/local_etc:/usr/local/etc kagalpandh/kacpp-mail
+
+services:
+    kacpp-named:
+        image: kagalpandh/kacpp-named
+        container_name: kacpp-named
+        volumes:
+            - /home/local_etc/named:/var/named/etc/named
+#         network_mode: host
+        expose:
+            - "53"
+            - "953"
+        networks:
+            - raspinet
+        ports:
+            - "53:53/tcp"
+            - "53:53/udp"
+            - "953:953/tcp"
+        cap_add:
+            - SYS_ADMIN
+        privileged: true
+#         restart: always
+        env_file: kacpp-named.src
+#         entrypoint: /bin/bash
+#         environment:
+#             PGDATA: /home/data/db/pgdata
+networks:
+    raspinet:
+        external: true
+
+

@@ -1,0 +1,92 @@
+#########
+# 説明: initスクリプトで共通に使う関数を定義するスクリプト
+# file: initrc
+########
+
+
+####
+# 説明:             インターネツトに接続できているか確認する。
+# 詳細:             インターネットに接続できているかはpingで確認し、
+#                   そのpingの待機秒数と繰り返し回数はオプションで指定できる。
+#                   オプションは指定しなくても良い。
+#                   pingの相手は8.8.8.8のGoogle public DNSである。
+#                   
+# Usage:            usage: is_online [ -c 繰り返し回数 ] [ -w 待機秒数 ] -h
+# オプション:       -c 繰り返し回数  指定しない場合は100回
+#                   -w 待機秒数      指定しない場合は1秒
+#                   -h ヘルプ
+# 終了ステータス:   0   インターネットに接続している
+#                   1   インターネットに接続していない
+#                   2   オプション指定エラー
+#
+###
+function is_online() {
+    local wait_sec              # 待機秒数
+    local loop_count            # 繰り返し回数
+    local ip_addr               # IPアドレス
+    local usage_string          # usage string
+    wait_sec=1
+    loop_count=100
+    ip_addr="8.8.8.8"
+    usage_string="usage: is_online [ -c 繰り返し回数 ] [ -w 待機秒数 ] -h"
+
+    while getopts c:w:h option
+    do
+        case $option in
+            c)
+                loop_count=$OPTARG
+                ;;
+            w)
+                wait_sec=$OPTARG
+                ;;
+            h)
+                echo "$usage_string"
+                return 0
+                ;;
+            \?)
+                echo "Error: shell func is_online(): オプションが違います。 $option" 1>&2
+                echo "$usage_string" 1>&2
+                return 2
+                ;;
+        esac
+    done
+    shift `expr "$OPTIND" - 1`
+    echo "wait_sec=$wait_sec loop_count=$loop_count"
+
+    
+    i=0
+    while [  "$i" -lt "$loop_count" ]
+    do
+        ping -c 1 $ip_addr 2>&1 >/dev/null
+        if [ $? -eq 0 ]; then
+            return 0
+        fi
+        sleep $wait_sec
+        i=`expr "$i" + 1`
+    done
+    
+    echo "Error shell function is_online(): インターネットに接続していません " 2>&1
+    echo "ping ipaddr=$ip_addr loop_count=$loop_count wait_sec=$wait_sec" 2>&1
+    return 1;
+}
+
+##
+# 概要: 引数で指定したプログラムのPIDを標準出力に書き出す。
+# 引数: 第一引数    プログラム名
+# 標準出力   そのプログラムのPID
+# ステータス:
+#   0       成功
+#   -1      起動しているプログラムが見つからない
+function get_prog_pid() {
+    local prog
+    local pid
+    prog=$1
+    pid=$(ps auxw | grep "$prog" | grep -v "grep" | head -n 1 | awk '{print $2;}')
+    if [[ -z $pid ]]
+    then
+        return -1
+    fi
+    echo $pid
+    return 0
+}
+

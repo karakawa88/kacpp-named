@@ -44,7 +44,8 @@ COPY        sh/apt-install/named.txt /usr/local/sh/apt-install
 RUN         apt update && \
             /usr/local/sh/system/apt-install.sh install named.txt && \
             groupadd -g ${NAMED_GID} ${NAMED_GROUP} && \
-            useradd -s /bin/false -d /dev/null -g ${NAMED_GROUP} -G ${NAMED_GROUP} ${NAMED_USER} && \
+            useradd -s /bin/false -d /dev/null -g ${NAMED_GROUP} -G ${NAMED_GROUP} \
+                -u ${NAMED_UID} ${NAMED_USER} && \
             mkdir /usr/local/sh/sysconfig && \
             mkdir "${NAMED_ROOT}" && chmod 770 ${NAMED_ROOT} && \
             cd ${NAMED_ROOT} && \
@@ -64,8 +65,10 @@ ENV container docker
 #VOLUME [ "/sys/fs/cgroup" ]
 # systemdのインストールと設定
 RUN         apt install -y systemd && \
+            chmod 775 /usr/local/sh/system && \
+            chmod 775 /usr/local/sh/init.d && \
             chown root /usr/local/sh/system/*.sh && \
-            find /usr/local/sh/ -type f -name "*.sh" -exec chmod 775 {} && \
+            find /usr/local/sh/ -type f -name "*.sh" -exec chmod 775 {} \; && \
             # メールサーバーexim4が何故かインストールされるのでアンインストール
             #apt remove --purge exim4-base && \
             (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \

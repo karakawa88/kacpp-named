@@ -13,11 +13,11 @@
 #   QUERY_LOG_FLAG          querylogを取るかのフラグ
 #                           デフォルトはFALSE
 #####
-NAMED_CONF_FILE=/etc/named/named.conf
+NAMED_CONF_FILE=/usr/local/etc/named/named.conf
 NAMED_USER=named
 #NAMED_ROOT="/home/data/raspilocal/var/named"
-NAMED_ROOT="/var/named"
+NAMED_ROOT=""
 NAMED=/usr/local/sbin/named
 RNDC=/usr/local/sbin/rndc
-RNDC_CONF="/etc/named/rndc.conf"
+RNDC_CONF="/usr/local/etc/named/rndc.conf"
 QUERY_LOG_FLAG=TRUE

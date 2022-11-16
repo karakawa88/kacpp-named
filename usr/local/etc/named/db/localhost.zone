@@ -1,0 +1,17 @@
+$TTL    5h
+
+; SOAレコード
+localhost.       IN  SOA     ns.karaspi.lan. postmaster.kacpp.xyz. (
+    2022111501          ; シリアル番号
+    3h                  ; リフレッシュ
+    1h                  ; １時間後にリトライ
+    1w                  ; 期限切れ
+    3h                  ; ネガティブキャッシュ
+)
+
+; NSとMXレコード
+localhost.              IN  NS          ns.karaspi.lan.
+
+; Aレコード
+localhost.              IN  A           127.0.0.1
+

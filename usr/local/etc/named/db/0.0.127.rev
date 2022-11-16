@@ -1,0 +1,19 @@
+$TTL    5h
+
+; SOAレコード
+0.0.127.in-addr.arpa.   IN  SOA ns.karaspi.lan. postmaster.kacpp.xyz. (
+    2022111501              ;シリアル番号
+    3h                      ; リフレッシュ
+    1h                      ; リトライ
+    1w                      ; 期限
+    3h                      ; ネガティブキャッシュ
+)
+
+; NSレコード
+0.0.127.in-addr.arpa.       IN  NS          ns.karaspi.lan.
+0.0.127.in-addr.arpa.       IN  NS          ns.kaeth.lan.
+
+; PTRレコード
+1.0.0.127.in-addr.arpa.     IN  PTR         localhost.
+
+

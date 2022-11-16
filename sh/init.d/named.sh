@@ -20,12 +20,14 @@
 
 # named起動オプション
 # named環境変数ファイル
-if [[ -r /usr/local/sh/sysconfig/named ]]; then
+if [[ -r "$NAMED_CONF_DIR"/named.src ]]; then
+    . "$NAMED_CONF_DIR"/named.src
+elif [[ -r /usr/local/sh/sysconfig/named ]]; then
     . /usr/local/sh/sysconfig/named
 fi
 
 # NAMEの設定ファイル
-NAMED_CONF_FILE=${NAMED_CONF_FILE:-"/etc/named.conf"}
+NAMED_CONF_FILE=${NAMED_CONF_FILE:-"/usr/local/etc/named/named.conf"}
 # NAMEユーザーID
 NAMED_USER=${NAMED_USER:-"named"}
 # named chrootルートディレクトリー
@@ -51,7 +53,7 @@ NAMED=${NAMED:-"/usr/local/sbin/named"}
 # rndc コマンド
 RNDC=${RNDC:-"/usr/local/sbin/rndc"}
 # rndc 設定ファイル
-RNDC_CONF=${RNDC_CONF:-"$NAMED_ROOT/etc/rndc.conf"}
+RNDC_CONF=${RNDC_CONF:-"/usr/local//etc/named/rndc.conf"}
 # querylogを取るかのフラグ
 QUERY_LOG_FLAG=${QUERY_LOG_FLAG:-"FALSE"}
 # help文字列 

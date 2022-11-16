@@ -1,5 +1,5 @@
 #!/bin/bash
 
-docker exec kacpp-samba "/usr/local/sh/system/samba-init.sh"
+docker exec kacpp-named "/usr/local/sh/system/named-init.sh"
 
 exit 0

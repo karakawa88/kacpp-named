@@ -8,16 +8,16 @@ services:
         container_name: kacpp-named
         volumes:
             - /home/local_etc/named:/var/named/etc/named
-#         network_mode: host
+        network_mode: host
         expose:
             - "53"
             - "953"
-        networks:
-            - raspinet
-        ports:
-            - "53:53/tcp"
-            - "53:53/udp"
-            - "953:953/tcp"
+#         networks:
+#             - raspinet
+#         ports:
+#             - "53:53/tcp"
+#             - "53:53/udp"
+#             - "953:953/tcp"
         cap_add:
             - SYS_ADMIN
         privileged: true
@@ -26,8 +26,8 @@ services:
 #         entrypoint: /bin/bash
 #         environment:
 #             PGDATA: /home/data/db/pgdata
-networks:
-    raspinet:
-        external: true
-
+# networks:
+#     raspinet:
+#         external: true
+# 
 

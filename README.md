@@ -34,6 +34,7 @@ NAMED_CONF_DIR環境変数はDocker起動時に渡す環境変数でnamedの設�
 ## Bindのchroot
 Bind9はchroot機能を持ちもしchroot環境にしたければNAMED_ROOTを設定する。
 空文字列や定義されていないとchroot環境でないとみなされる。
+chrootの環境はすでに/var/named以下に用意してありこの/var/named/etc/namedを設定ファイルにすることもできる。
 chrootをする場合はそのほかにNAMED_CONF_FILEを設定しNAMED_ROOTを/にした相対パスを指定する。
 例えばNAMED_ROOTが/var/namedの場合/var/named/etc/namedに設定ファイルとDBファイルを外側と
 マウントする場合は/etc/named/named.confをこれに設定する。
@@ -133,6 +134,7 @@ Bind9ホーム         /usr/local/
 設定ディレクトリ    /usr/local/etc/named
     設定ファイル        named.conf
     環境変数ファイル    named.src
+systemd serviceファイル     /etc/systemd/system/named.service
 デフォルトの環境変数ファイル    /usr/local/sh/sysconfig/named
 システムスクリプト  /usr/local/sh/system
 Bind9初期化スクリプト           /usr/local/sh/system/named-init.sh

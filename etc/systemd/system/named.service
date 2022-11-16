@@ -7,6 +7,7 @@ Before=sshd.service ntpd.service
 
 [Service]
 # ExecStart=/usr/local/sbin/ntpd -s -f /usr/local/etc/openntpd/ntpd.conf
+EnvironmentFile=/etc/default/named
 ExecStart=/usr/local/sh/init.d/named.sh start
 ExecReload=/usr/local/sh/init.d/named.sh reload
 ExecStop=/usr/local/sh/init.d/named.sh stop

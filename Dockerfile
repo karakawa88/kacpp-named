@@ -12,7 +12,7 @@ ENV         NAMED_URL="https://downloads.isc.org/isc/bind9/${NAMED_VERSION}/${NA
 ENV         NAMED_GPG_PUBKEY="named-pubkey.asc"
 ENV         NAMED_GPG_PUBKEY_URL="https://www.isc.org/202122pgpkey/"
 ENV         NAMED_HOME=/usr/local/${NAMED_DEST}
-COPY        sh/apt-install  /usr/local/sh/apt-install
+COPY        sh/  /usr/local/sh
 # 開発環境インストール
 RUN         apt update && \
                 /usr/local/sh/system/apt-install.sh install named-dev.txt && \
@@ -59,6 +59,7 @@ RUN         apt update && \
 COPY        sh/init.d/ /usr/local/sh/init.d
 COPY        sh/sysconfig/   /usr/local/sh/sysconfig
 COPY        etc/systemd/system/  /etc/systemd/system
+COPY        etc/default/  /etc/default
 COPY        sh/system/  /usr/local/sh/system
             # systemd
 #VOLUME [ "/sys/fs/cgroup" ]

@@ -6,6 +6,7 @@
 # これがsystemdでは無効化されてしまう。そのためsystemdのServiceの
 # EmvironmentFileでこの環境変数を読み込む。
 if [[ -n "$NAMED_CONF_DIR" ]]
+then
     echo "NAMED_CONF_DIR=\"${NAMED_CONF_DIR}\"" >/etc/default/named
 fi
 

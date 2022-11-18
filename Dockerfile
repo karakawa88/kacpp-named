@@ -41,6 +41,8 @@ ENV         NAMED_GROUP=named
 ENV         NAMED_GID=145
 COPY        --from=builder  /usr/local/${NAMED_DEST}/ /usr/local/
 COPY        sh/apt-install/named.txt /usr/local/sh/apt-install
+# デフォルトののresolv.confの設定
+COPY        etc/resolv.conf     /etc
 RUN         apt update && \
             /usr/local/sh/system/apt-install.sh install named.txt && \
             groupadd -g ${NAMED_GID} ${NAMED_GROUP} && \

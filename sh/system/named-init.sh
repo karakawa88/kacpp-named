@@ -13,6 +13,10 @@ fi
 systemctl daemon-reload
 systemctl enable named
 systemctl start named
+systemctl start roothint-update.service
+systemctl start roothint-update.timer
+systemctl enable roothint-update.service
+systemctl enable roothint-update.timer
 
 exit 0
 

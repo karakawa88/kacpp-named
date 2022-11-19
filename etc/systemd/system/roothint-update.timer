@@ -1,0 +1,13 @@
+[Unit]
+Description=named roothint 更新タイマー
+
+[Timer]
+OnCalendar=*-*-18 17:00
+Unit=roothint-update.service
+AccuracySec=1h
+Persistent=true
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target
+

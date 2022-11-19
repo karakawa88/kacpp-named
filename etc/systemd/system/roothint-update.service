@@ -1,0 +1,19 @@
+Description=Named root hint 更新Service
+#Wants=network.target dhcpcd5.service
+#After=basic.target network-online.target
+#Before=sshd.service ntpd.service mpd.service kacpp-samba.service
+#Conflicts=systemd-timesyncd.service
+
+[Service]
+# ExecStart=/usr/local/sbin/ntpd -s -f /usr/local/etc/openntpd/ntpd.conf
+EnvironmentFile=/etc/default/named
+ExecStart=/usr/local/sh/system/roothint-update.sh
+# ExecReload=/usr/local/sh/init.d/named.sh reload
+# ExecStop=/usr/local/sh/init.d/named.sh stop
+# Restart=always
+# StartLimitIntervalSec=1800s
+# StartLimitBurst=30
+Type=oneshot
+
+[Install]
+RequiredBy=roothint-update.timer

@@ -60,7 +60,6 @@ RUN         apt update && \
             ldconfig
 COPY        sh/init.d/ /usr/local/sh/init.d
 COPY        sh/sysconfig/   /usr/local/sh/sysconfig
-COPY        etc/systemd/system/  /etc/systemd/system
 COPY        etc/default/  /etc/default
 COPY        sh/system/  /usr/local/sh/system
             # systemd
@@ -71,12 +70,14 @@ RUN         apt install -y systemd && \
             chmod 775 /usr/local/sh/init.d && \
             chown root /usr/local/sh/system/*.sh && \
             find /usr/local/sh/ -type f -name "*.sh" -exec chmod 775 {} \;
+COPY        etc/systemd/  /etc/systemd
+# rsyslogのインストールと設定
 RUN         apt install -y rsyslog && \
             cp /etc/rsyslog.conf /etc/rsyslog.conf.org
 COPY        etc/rsyslog.conf   /etc
 COPY        etc/rsyslog.d/  /etc/rsyslog.d
 #RUN         apt install -y logrotate
-#COPY        etc/logrotate.d/     /etc/logrotate.d
+COPY        etc/logrotate.d/     /etc/logrotate.d
             # メールサーバーexim4が何故かインストールされるのでアンインストール
 RUN         apt remove --purge exim4-base && \
             (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \

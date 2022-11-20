@@ -46,7 +46,7 @@ if [[ -n "$NAMED_ROOT" ]]; then
         exit 2
     fi
 fi
-echo $OPTIONS
+# echo $OPTIONS
 
 # namedサーバー
 NAMED=${NAMED:-"/usr/local/sbin/named"}
@@ -61,6 +61,12 @@ USAGE_STRING="usage: named.sh [start | reload | stop | status ]"
 
 if [[ -r /usr/local/sh/init.d/initrc ]]; then
     . /usr/local/sh/init.d/initrc
+fi
+
+# namedのlogrotateのファイルのコピー
+if [[ -r "${NAMED_CONF_DIR}/named.logrotate" ]]
+then
+    cp "${NAMED_CONF_DIR}/named.logrotate" /etc/logrotate.d/named
 fi
 
 _start() {

@@ -70,9 +70,15 @@ RUN         apt install -y systemd && \
             chmod 775 /usr/local/sh/system && \
             chmod 775 /usr/local/sh/init.d && \
             chown root /usr/local/sh/system/*.sh && \
-            find /usr/local/sh/ -type f -name "*.sh" -exec chmod 775 {} \; && \
+            find /usr/local/sh/ -type f -name "*.sh" -exec chmod 775 {} \;
+RUN         apt install -y rsyslog && \
+            cp /etc/rsyslog.conf /etc/rsyslog.conf.org
+COPY        etc/rsyslog.conf   /etc
+COPY        etc/rsyslog.d/  /etc/rsyslog.d
+#RUN         apt install -y logrotate
+#COPY        etc/logrotate.d/     /etc/logrotate.d
             # メールサーバーexim4が何故かインストールされるのでアンインストール
-            #apt remove --purge exim4-base && \
+RUN         apt remove --purge exim4-base && \
             (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \
             systemd-tmpfiles-setup.service ] || rm -f $i; done); \
             rm -f /lib/systemd/system/multi-user.target.wants/*;\
@@ -85,5 +91,4 @@ RUN         apt install -y systemd && \
             cd ~/ && apt clean && rm -rf /var/lib/apt/lists/*
 # cronとlogrotateの設定
 # COPY        etc/cron.d/     /etc/cron.d
-# COPY        etc/logrotate.d/     /etc/logrotate.d
 ENTRYPOINT  ["/usr/local/sh/system/named-entrypoint.sh"]

@@ -13,6 +13,10 @@ fi
 systemctl daemon-reload
 systemctl enable named
 systemctl start named
+systemctl enable logrotate.service
+systemctl start logrotate.service
+systemctl enable logrotate.timer
+systemctl start logrotate.timer
 systemctl start roothint-update.service
 systemctl start roothint-update.timer
 systemctl enable roothint-update.service
